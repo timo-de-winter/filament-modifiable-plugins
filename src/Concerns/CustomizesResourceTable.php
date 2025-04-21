@@ -3,7 +3,6 @@
 namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
 use Closure;
-use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Tables\Table;
 use TimoDeWinter\FilamentModifiablePlugins\CustomizableTable;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
@@ -11,8 +10,11 @@ use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 trait CustomizesResourceTable
 {
     protected array $columns = [];
+
     protected array $filters = [];
+
     protected array $actions = [];
+
     protected array $bulkActions = [];
 
     protected array $customTables = [];

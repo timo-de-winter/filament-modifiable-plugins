@@ -5,11 +5,10 @@ namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 use Closure;
 use Filament\Facades\Filament;
 use Filament\Forms\Form;
-use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use TimoDeWinter\FilamentModifiablePlugins\CustomizableTable;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
-use Illuminate\Contracts\Support\Htmlable;
 
 trait CanBeModified
 {
@@ -67,7 +66,7 @@ trait CanBeModified
 
     public static function getCustomRelations(array $defaultRelations = []): array
     {
-        if (!Filament::getCurrentPanel()) {
+        if (! Filament::getCurrentPanel()) {
             return $defaultRelations;
         }
 
@@ -76,7 +75,7 @@ trait CanBeModified
 
     public static function getCustomPages(array $defaultPages = []): array
     {
-        if (!Filament::getCurrentPanel()) {
+        if (! Filament::getCurrentPanel()) {
             return $defaultPages;
         }
 

@@ -41,7 +41,7 @@ class FilamentModifiablePlugins
 
     public function getPluginIfAvailable(string $pluginId): FilamentManager|Plugin|null
     {
-        if (!Filament::getCurrentPanel()) {
+        if (! Filament::getCurrentPanel()) {
             return null;
         }
 

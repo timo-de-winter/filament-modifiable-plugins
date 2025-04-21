@@ -4,13 +4,13 @@ namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
 use Closure;
 use Filament\Forms\Form;
-use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 use Filament\Support\Concerns\EvaluatesClosures;
+use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 
 trait CanModifyResources
 {
-    use EvaluatesClosures;
     use CustomizesResourceTable;
+    use EvaluatesClosures;
 
     protected array $navigationGroups = [];
 
