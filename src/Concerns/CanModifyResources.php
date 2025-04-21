@@ -32,7 +32,6 @@ trait CanModifyResources
 
     protected array $customPages = [];
 
-
     protected array $tenantOwnershipRelationshipNames = [];
 
     public function navigationGroup(string|Closure $group, string $resource = 'default'): static
