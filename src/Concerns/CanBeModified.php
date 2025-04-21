@@ -49,6 +49,11 @@ trait CanBeModified
         return filament(self::getPluginId())->getSlug(self::class) ?? parent::getSlug();
     }
 
+    public static function getTenantOwnershipRelationshipName(): string
+    {
+        return filament(self::getPluginId())->getTenantOwnershipRelationshipName(self::class) ?? parent::getTenantOwnershipRelationshipName();
+    }
+
     public static function getCluster(): ?string
     {
         return FilamentModifiablePlugins::getCluster(self::class) ?? parent::getCluster();
