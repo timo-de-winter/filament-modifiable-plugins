@@ -32,6 +32,9 @@ trait CanModifyResources
 
     protected array $customPages = [];
 
+
+    protected array $tenantOwnershipRelationshipNames = [];
+
     public function navigationGroup(string|Closure $group, string $resource = 'default'): static
     {
         $this->navigationGroups[$resource] = $group;
@@ -77,6 +80,13 @@ trait CanModifyResources
     public function slug(string|Closure $slug, string $resource = 'default'): static
     {
         $this->slugs[$resource] = $slug;
+
+        return $this;
+    }
+
+    public function tenantOwnershipRelationshipName(string|Closure $tenantOwnershipRelationshipName, string $resource = 'default'): static
+    {
+        $this->tenantOwnershipRelationshipNames[$resource] = $tenantOwnershipRelationshipName;
 
         return $this;
     }
@@ -142,6 +152,11 @@ trait CanModifyResources
     public function getSlug(string $resource = 'default'): Closure|string|null
     {
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->slugs, $resource));
+    }
+
+    public function getTenantOwnershipRelationshipNames(string $resource = 'default'): Closure|string|null
+    {
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->tenantOwnershipRelationshipNames, $resource));
     }
 
     public function getCustomRelations(string $resource = 'default'): Closure|array|null
