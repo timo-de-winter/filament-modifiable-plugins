@@ -1,6 +1,6 @@
 {
     "name": "timo-de-winter/filament-modifiable-plugins",
-    "version": "v1.0.0",
+    "version": "v2.0.0",
     "description": "A helper package for when creating packages that provide filament resources.",
     "keywords": [
         "timo-de-winter",
@@ -8,7 +8,7 @@
         "filament-modifiable-plugins"
     ],
     "homepage": "https://github.com/timo-de-winter/filament-modifiable-plugins",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Timo de Winter",

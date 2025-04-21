@@ -3,6 +3,9 @@
 namespace TimoDeWinter\FilamentModifiablePlugins;
 
 use Closure;
+use Filament\Contracts\Plugin;
+use Filament\Facades\Filament;
+use Filament\FilamentManager;
 use Filament\Support\Concerns\EvaluatesClosures;
 
 class FilamentModifiablePlugins
@@ -34,5 +37,14 @@ class FilamentModifiablePlugins
     public function getCluster(string $resource = 'default'): Closure|string|null
     {
         return $this->evaluate($this->getItemOrDefaultItem($this->clusters, $resource));
+    }
+
+    public function getPluginIfAvailable(string $pluginId): FilamentManager|Plugin|null
+    {
+        if (!Filament::getCurrentPanel()) {
+            return null;
+        }
+
+        return filament($pluginId);
     }
 }

@@ -14,24 +14,136 @@ composer require timo-de-winter/filament-modifiable-plugins
 ```
 
 ## Usage
-You should add the CanModifyPage trait to your plugin class.
+This is an example of a plugin that may be installed that allows resources to be customized:
 
 ```php
-use CanModifyPage;
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            UserManagementPlugin::make()
+                ->navigationGroup('Settings')
+                ->navigationSort(2)
+                ->navigationLabel('System users')
+                ->navigationIcon('heroicon-o-users')
+                ->activeNavigationIcon('heroicon-m-users')
+                ->pageTitle('Your users')
+                ->slug('cool-users')
+                ->cluster(Settings::class)
+        ]);
+}
 ```
 
-Add the following trait to your resources:
+### Custom form & tables
+Most packages that make use of customizable resources will allow you to use custom forms and tables
 ```php
-use CanBeModified;
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            UserManagementPlugin::make()
+                ->form(function (Form $form) {
+                    return $form->schema([
+                        TextInput::make('name'),
+                    ]);
+                })
+                // You can customize the table functions like so
+                ->columns([])
+                ->filters([])
+                ->actions([])
+                ->bulkActions([])
+                // Or just override the full table like so:
+                ->customTable(function (\Filament\Tables\Table $table) {
+                    return $table
+                        ->columns();
+                })
+        ]);
+}
 ```
 
-When implementing the plugin you can customize how it is used:
+### Multiple resources
+When a package ships with multiple resources you can use the functions to target specific resources.
+When leaving the specific resource out, you will target all resources that have no specific customizer set.
+
 ```php
-AwesomePlugin::make()
-    ->navigationSort(1)
-    ->cluster(CoolCluster::class, AwesomeResource::class);
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            UserManagementPlugin::make()
+                ->navigationGroup('Settings', UserResource::class)
+                ->form(function (Form $form) {
+                    return $form->schema([
+                        TextInput::make('name'),
+                    ]);
+                }, UserResource::class),
+        ]);
+}
 ```
-There are many more customizations possible.
+
+### Creating a customizable resource
+When you are writing a plugin that provides one or more resources you might want to implement customizable resources as well.
+Below you can find an explanation of how to create a customizable resource.
+
+First you should add the following trait to the resource.
+```php
+use \BeInteractive\BeFilamentCore\Modules\CustomizableResources\Traits\InteractsWithCustomizableResource;
+```
+
+To make sure that your form can be customized implement it like this:
+```php
+public static function form(Form $form): Form
+{
+    return self::getCustomForm($form, function (Form $form) {
+        return $form
+            ->schema([
+                // your default form schema
+            ]);
+    });
+}
+```
+
+Now to make your table customizable you implement the `CustomizableTable` class to make customization easier.
+```php
+public static function table(Table $table): Table
+{
+    return self::getCustomTable($table, function (CustomizableTable $table) {
+        return $table
+            ->defaultColumns([
+                // Your default default columns
+            ])
+            ->defaultFilters([
+                // Your default default filters
+            ])
+            ->defaultActions([
+                // Your default default actions
+            ])
+            ->defaultBulkActions([
+                // Your default default bulk actions
+            ]);
+    });
+}
+```
+
+Implement custom relations like this:
+```php
+public static function getRelations(): array
+{
+    return self::getCustomRelations([
+        // Your default relations
+    ]);
+}
+```
+
+Implement custom pages like this:
+```php
+public static function getPages(): array
+{
+    return self::getCustomPages([
+        // Your default pages
+    ]);
+}
+```
 
 ## Testing
 ```bash
