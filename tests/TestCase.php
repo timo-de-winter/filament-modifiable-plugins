@@ -2,9 +2,9 @@
 
 namespace TimoDeWinter\FilamentModifiablePlugins\Tests;
 
-use TimoDeWinter\FilamentModifiablePlugins\FilamentModifiablePluginsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use TimoDeWinter\FilamentModifiablePlugins\FilamentModifiablePluginsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'TimoDeWinter\\FilamentModifiablePlugins\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'TimoDeWinter\\FilamentModifiablePlugins\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

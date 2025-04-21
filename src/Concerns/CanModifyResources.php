@@ -3,11 +3,13 @@
 namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
 use Closure;
-use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
+use Filament\Forms\Form;
 use Filament\Support\Concerns\EvaluatesClosures;
+use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 
-trait CanModifyPage
+trait CanModifyResources
 {
+    use CustomizesResourceTable;
     use EvaluatesClosures;
 
     protected array $navigationGroups = [];
@@ -23,6 +25,12 @@ trait CanModifyPage
     protected array $pageTitles = [];
 
     protected array $slugs = [];
+
+    protected array $forms = [];
+
+    protected array $customRelations = [];
+
+    protected array $customPages = [];
 
     public function navigationGroup(string|Closure $group, string $resource = 'default'): static
     {
@@ -80,6 +88,27 @@ trait CanModifyPage
         return $this;
     }
 
+    public function customRelations(array|Closure $relations, string $resource = 'default'): static
+    {
+        $this->customRelations[$resource] = $relations;
+
+        return $this;
+    }
+
+    public function customPages(array|Closure $pages, string $resource = 'default'): static
+    {
+        $this->customPages[$resource] = $pages;
+
+        return $this;
+    }
+
+    public function form(Closure $form, string $resource = 'default'): static
+    {
+        $this->forms[$resource] = $form;
+
+        return $this;
+    }
+
     public function getNavigationGroup(string $resource = 'default'): Closure|string|null
     {
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->navigationGroups, $resource));
@@ -113,5 +142,22 @@ trait CanModifyPage
     public function getSlug(string $resource = 'default'): Closure|string|null
     {
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->slugs, $resource));
+    }
+
+    public function getCustomRelations(string $resource = 'default'): Closure|array|null
+    {
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->customRelations, $resource));
+    }
+
+    public function getCustomPages(string $resource = 'default'): Closure|array|null
+    {
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->customPages, $resource));
+    }
+
+    public function getForm(Form $form, Closure $defaultForm, string $resource = 'default'): Form
+    {
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->forms, $resource) ?? $defaultForm, [
+            'form' => $form,
+        ]);
     }
 }
