@@ -153,7 +153,7 @@ trait CanModifyResources
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->slugs, $resource));
     }
 
-    public function getTenantOwnershipRelationshipNames(string $resource = 'default'): Closure|string|null
+    public function getTenantOwnershipRelationshipName(string $resource = 'default'): Closure|string|null
     {
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->tenantOwnershipRelationshipNames, $resource));
     }
