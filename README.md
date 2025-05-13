@@ -5,7 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/timo-de-winter/filament-modifiable-plugins/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/timo-de-winter/filament-modifiable-plugins/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/timo-de-winter/filament-modifiable-plugins.svg?style=flat-square)](https://packagist.org/packages/timo-de-winter/filament-modifiable-plugins)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package aims to make it easier to create filament plugins. Often when you create a plugin that publishes resources or pages
+you'll want to give developers the possibility of changing things like navigation sort, label, icon, etc. This plugin
+comes with features to modify nearly everything on a resource or page, including forms, tables, clusters, tenancy ownership, and layout (like icon, label, etc.).
 ## Installation
 
 You can install the package via composer:
@@ -13,7 +15,7 @@ You can install the package via composer:
 composer require timo-de-winter/filament-modifiable-plugins
 ```
 
-## Usage
+## Usage for developers that use your plugin
 This is an example of a plugin that may be installed that allows resources to be customized:
 
 ```php
@@ -81,15 +83,39 @@ public function panel(Panel $panel): Panel
 }
 ```
 
-### Creating a customizable resource
+## Make your plugin modifiable
 When you are writing a plugin that provides one or more resources you might want to implement customizable resources as well.
 Below you can find an explanation of how to create a customizable resource.
 
-First you should add the following trait to the resource.
+### Getting your plugin and resources ready
+First you should add the following trait to your plugin.
 ```php
-use \BeInteractive\BeFilamentCore\Modules\CustomizableResources\Traits\InteractsWithCustomizableResource;
+use TimoDeWinter\FilamentModifiablePlugins\Concerns\CanModifyResources;
+
+class YourPlugin implements Plugin {
+    use CanModifyResources;
+}
 ```
 
+Then you should add the following trait to any of the resources that you provide and implement the `getPluginId` function:
+```php
+use TimoDeWinter\FilamentModifiablePlugins\Concerns\CanBeModified;
+
+class YourResource extends Resource {
+    use CanBeModified;
+    
+    public static function getPluginId(): string
+    {
+        return 'my-cool-plugin';
+    }
+}
+```
+
+### Developing with this plugin in mind
+Since we give the developers that use your plugin the possibility to modify things like forms and tables we need to take this
+into account while developing resources.
+
+#### Forms
 To make sure that your form can be customized implement it like this:
 ```php
 public static function form(Form $form): Form
@@ -103,6 +129,7 @@ public static function form(Form $form): Form
 }
 ```
 
+#### Tables
 Now to make your table customizable you implement the `CustomizableTable` class to make customization easier.
 ```php
 public static function table(Table $table): Table
@@ -125,6 +152,7 @@ public static function table(Table $table): Table
 }
 ```
 
+#### Custom relations
 Implement custom relations like this:
 ```php
 public static function getRelations(): array
@@ -135,6 +163,7 @@ public static function getRelations(): array
 }
 ```
 
+#### Custom pages
 Implement custom pages like this:
 ```php
 public static function getPages(): array
