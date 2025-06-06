@@ -83,14 +83,14 @@ trait CanModifyResources
         return $this;
     }
 
-    public function tenantOwnershipRelationshipName(string|Closure $tenantOwnershipRelationshipName, string $resource = 'default'): static
+    public function tenantOwnershipRelationshipName(null|string|Closure $tenantOwnershipRelationshipName, string $resource = 'default'): static
     {
         $this->tenantOwnershipRelationshipNames[$resource] = $tenantOwnershipRelationshipName;
 
         return $this;
     }
 
-    public function cluster(string|Closure $cluster, string $resource = 'default'): static
+    public function cluster(null|string|Closure $cluster, string $resource = 'default'): static
     {
         FilamentModifiablePlugins::cluster($cluster, $resource);
 

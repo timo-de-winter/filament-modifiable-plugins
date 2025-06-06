@@ -1,6 +1,6 @@
 {
     "name": "timo-de-winter/filament-modifiable-plugins",
-    "version": "v2.1.2",
+    "version": "v2.1.3",
     "description": "A helper package for when creating packages that provide filament resources.",
     "keywords": [
         "timo-de-winter",
