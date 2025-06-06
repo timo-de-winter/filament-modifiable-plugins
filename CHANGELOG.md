@@ -2,6 +2,14 @@
 
 All notable changes to `filament-locale-manager` will be documented in this file.
 
+## v2.1.3 - 2025-06-06
+
+### What's Changed
+
+* Add support for nullable values by @timo-de-winter in https://github.com/timo-de-winter/filament-modifiable-plugins/pull/3
+
+**Full Changelog**: https://github.com/timo-de-winter/filament-modifiable-plugins/compare/v2.1.2...v2.1.3
+
 ## v2.1.2 - 2025-05-13
 
 ### What's Changed
