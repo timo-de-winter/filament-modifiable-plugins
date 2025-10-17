@@ -4,9 +4,9 @@ namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
 use Closure;
 use Filament\Facades\Filament;
-use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
+use Nette\Schema\Schema;
 use TimoDeWinter\FilamentModifiablePlugins\CustomizableTable;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 
@@ -59,9 +59,9 @@ trait CanBeModified
         return FilamentModifiablePlugins::getCluster(self::class) ?? parent::getCluster();
     }
 
-    public static function getCustomForm(Form $form, Closure $defaultForm): Form
+    public static function getCustomSchema(Schema $form, Closure $defaultSchema): Schema
     {
-        return filament(self::getPluginId())->getForm($form, $defaultForm, self::class);
+        return filament(self::getPluginId())->getSchema($form, $defaultSchema, self::class);
     }
 
     public static function getCustomTable(Table $table, Closure $defaultTable): CustomizableTable|Table

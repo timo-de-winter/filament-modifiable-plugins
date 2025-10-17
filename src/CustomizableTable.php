@@ -41,14 +41,14 @@ class CustomizableTable extends Table
 
     public function defaultActions(array $defaults): static
     {
-        $this->actions(filament($this->pluginId)->getActions() ?? $defaults);
+        $this->recordActions(filament($this->pluginId)->getRecordActions() ?? $defaults);
 
         return $this;
     }
 
     public function defaultBulkActions(array $defaults): static
     {
-        $this->bulkActions(filament($this->pluginId)->getBulkActions() ?? $defaults);
+        $this->toolbarActions(filament($this->pluginId)->getToolbarActions() ?? $defaults);
 
         return $this;
     }

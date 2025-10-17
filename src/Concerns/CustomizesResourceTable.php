@@ -13,9 +13,9 @@ trait CustomizesResourceTable
 
     protected array $filters = [];
 
-    protected array $actions = [];
+    protected array $recordActions = [];
 
-    protected array $bulkActions = [];
+    protected array $toolbarActions = [];
 
     protected array $customTables = [];
 
@@ -33,16 +33,16 @@ trait CustomizesResourceTable
         return $this;
     }
 
-    public function actions(array|Closure $actions, string $resource = 'default'): static
+    public function recordActions(array|Closure $actions, string $resource = 'default'): static
     {
-        $this->actions[$resource] = $actions;
+        $this->recordActions[$resource] = $actions;
 
         return $this;
     }
 
     public function bulkActions(array|Closure $bulkActions, string $resource = 'default'): static
     {
-        $this->bulkActions[$resource] = $bulkActions;
+        $this->toolbarActions[$resource] = $bulkActions;
 
         return $this;
     }
@@ -64,14 +64,14 @@ trait CustomizesResourceTable
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->filters, $resource));
     }
 
-    public function getActions(string $resource = 'default'): ?array
+    public function getRecordActions(string $resource = 'default'): ?array
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->actions, $resource));
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->recordActions, $resource));
     }
 
-    public function getBulkActions(string $resource = 'default'): ?array
+    public function getToolbarActions(string $resource = 'default'): ?array
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->bulkActions, $resource));
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->toolbarActions, $resource));
     }
 
     public function getCustomTable(Table $table, Closure $defaultTable, string $pluginId, string $resource = 'default'): Table|CustomizableTable

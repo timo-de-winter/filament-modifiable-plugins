@@ -3,7 +3,7 @@
 namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
 use Closure;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Support\Concerns\EvaluatesClosures;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 
@@ -26,7 +26,7 @@ trait CanModifyResources
 
     protected array $slugs = [];
 
-    protected array $forms = [];
+    protected array $schemas = [];
 
     protected array $customRelations = [];
 
@@ -111,9 +111,9 @@ trait CanModifyResources
         return $this;
     }
 
-    public function form(Closure $form, string $resource = 'default'): static
+    public function schema(Closure $schema, string $resource = 'default'): static
     {
-        $this->forms[$resource] = $form;
+        $this->schemas[$resource] = $schema;
 
         return $this;
     }
@@ -168,10 +168,10 @@ trait CanModifyResources
         return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->customPages, $resource));
     }
 
-    public function getForm(Form $form, Closure $defaultForm, string $resource = 'default'): Form
+    public function getSchema(Schema $schema, Closure $defaultSchema, string $resource = 'default'): Schema
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->forms, $resource) ?? $defaultForm, [
-            'form' => $form,
+        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->schema, $resource) ?? $defaultSchema, [
+            'schema' => $schema,
         ]);
     }
 }
