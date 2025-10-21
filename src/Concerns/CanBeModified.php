@@ -2,71 +2,65 @@
 
 namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
+use BackedEnum;
 use Closure;
 use Filament\Facades\Filament;
+use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
-use Nette\Schema\Schema;
 use TimoDeWinter\FilamentModifiablePlugins\CustomizableTable;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
 
 trait CanBeModified
 {
-    abstract public static function getPluginId(): string;
-
-    public static function getNavigationGroup(): ?string
-    {
-        return filament(self::getPluginId())->getNavigationGroup(self::class) ?? parent::getNavigationGroup();
-    }
-
-    public static function getNavigationSort(): ?int
-    {
-        return filament(self::getPluginId())->getNavigationSort(self::class) ?? parent::getNavigationSort();
-    }
-
-    public static function getNavigationLabel(): string
-    {
-        return filament(self::getPluginId())->getNavigationLabel(self::class) ?? parent::getNavigationLabel();
-    }
-
-    public static function getNavigationIcon(): string|Htmlable|null
-    {
-        return filament(self::getPluginId())->getNavigationIcon(self::class) ?? parent::getNavigationIcon();
-    }
-
-    public static function getActiveNavigationIcon(): string|Htmlable|null
-    {
-        return filament(self::getPluginId())->getActiveNavigationIcon(self::class) ?? parent::getActiveNavigationIcon();
-    }
-
-    public function getTitle(): string|Htmlable
-    {
-        return filament(self::getPluginId())->getPageTitle(self::class) ?? parent::getTitle();
-    }
-
-    public static function getSlug(): string
-    {
-        return filament(self::getPluginId())->getSlug(self::class) ?? parent::getSlug();
-    }
-
-    public static function getTenantOwnershipRelationshipName(): string
-    {
-        return filament(self::getPluginId())->getTenantOwnershipRelationshipName(self::class) ?? parent::getTenantOwnershipRelationshipName();
-    }
-
     public static function getCluster(): ?string
     {
         return FilamentModifiablePlugins::getCluster(self::class) ?? parent::getCluster();
     }
 
-    public static function getCustomSchema(Schema $form, Closure $defaultSchema): Schema
+    public static function getNavigationGroup(string $resource): ?string
     {
-        return filament(self::getPluginId())->getSchema($form, $defaultSchema, self::class);
+        return FilamentModifiablePlugins::getNavigationGroup($resource) ?? parent::getNavigationGroup();
     }
 
-    public static function getCustomTable(Table $table, Closure $defaultTable): CustomizableTable|Table
+    public static function getNavigationParentItem(string $resource): ?string
     {
-        return filament(self::getPluginId())->getCustomTable($table, $defaultTable, self::getPluginId(), self::class);
+        return FilamentModifiablePlugins::getNavigationParentItem($resource) ?? parent::getNavigationParentItem();
+    }
+
+    public static function getNavigationIcon(string $resource): string|BackedEnum|null
+    {
+        return FilamentModifiablePlugins::getNavigationIcon($resource) ?? parent::getNavigationIcon();
+    }
+
+    public static function getActiveNavigationIcon(string $resource): string|BackedEnum|null
+    {
+        return FilamentModifiablePlugins::getActiveNavigationIcon($resource) ?? parent::getActiveNavigationIcon();
+    }
+
+    public static function getLabel(string $resource): ?string
+    {
+        return FilamentModifiablePlugins::getLabel($resource) ?? parent::getLabel();
+    }
+
+    public static function getNavigationSort(string $resource): ?int
+    {
+        return FilamentModifiablePlugins::getNavigationSort($resource) ?? parent::getNavigationSort();
+    }
+
+    public static function getNavigationBadge(string $resource): ?string
+    {
+        return FilamentModifiablePlugins::getNavigationBadge($resource) ?? parent::getNavigationBadge();
+    }
+
+    public static function getNavigationBadgeColor(string $resource): ?string
+    {
+        return FilamentModifiablePlugins::getNavigationBadgeColor($resource) ?? parent::getNavigationBadgeColor();
+    }
+
+    public static function getNavigationBadgeTooltip(string $resource): Htmlable|string|null
+    {
+        return FilamentModifiablePlugins::getNavigationBadgeTooltip($resource) ?? parent::getNavigationBadgeTooltip();
     }
 
     public static function getCustomRelations(array $defaultRelations = []): array
@@ -75,7 +69,7 @@ trait CanBeModified
             return $defaultRelations;
         }
 
-        return filament(self::getPluginId())->getCustomRelations(self::class) ?? $defaultRelations;
+        return FilamentModifiablePlugins::getCustomRelations(self::class) ?? $defaultRelations;
     }
 
     public static function getCustomPages(array $defaultPages = []): array
@@ -84,6 +78,16 @@ trait CanBeModified
             return $defaultPages;
         }
 
-        return filament(self::getPluginId())->getCustomPages(self::class) ?? $defaultPages;
+        return FilamentModifiablePlugins::getCustomPages(self::class) ?? $defaultPages;
+    }
+
+    public static function getCustomSchema(Schema $schema, Closure $defaultSchema): Schema
+    {
+        return FilamentModifiablePlugins::getSchema($schema, $defaultSchema, self::class);
+    }
+
+    public static function getCustomTable(Table $table, Closure $defaultTable): CustomizableTable|Table
+    {
+        return FilamentModifiablePlugins::getCustomTable($table, $defaultTable, self::class);
     }
 }

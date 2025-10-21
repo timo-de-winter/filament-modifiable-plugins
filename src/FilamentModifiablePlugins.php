@@ -2,49 +2,17 @@
 
 namespace TimoDeWinter\FilamentModifiablePlugins;
 
-use Closure;
-use Filament\Contracts\Plugin;
-use Filament\Facades\Filament;
-use Filament\FilamentManager;
 use Filament\Support\Concerns\EvaluatesClosures;
+use TimoDeWinter\FilamentModifiablePlugins\Concerns\ResourceModifications\CanModifyCluster;
+use TimoDeWinter\FilamentModifiablePlugins\Concerns\ResourceModifications\CanModifyNavigation;
+use TimoDeWinter\FilamentModifiablePlugins\Concerns\ResourceModifications\CanModifyPageFeatures;
+use TimoDeWinter\FilamentModifiablePlugins\Concerns\ResourceModifications\CanModifyTable;
 
 class FilamentModifiablePlugins
 {
+    use CanModifyCluster;
+    use CanModifyNavigation;
+    use CanModifyPageFeatures;
+    use CanModifyTable;
     use EvaluatesClosures;
-
-    protected array $clusters = [];
-
-    public function getItemOrDefaultItem(array $items, $resource): mixed
-    {
-        if (array_key_exists($resource, $items)) {
-            return $items[$resource];
-        }
-
-        if (array_key_exists('default', $items)) {
-            return $items['default'];
-        }
-
-        return null;
-    }
-
-    public function cluster(string|Closure $cluster, string $resource = 'default'): static
-    {
-        $this->clusters[$resource] = $cluster;
-
-        return $this;
-    }
-
-    public function getCluster(string $resource = 'default'): Closure|string|null
-    {
-        return $this->evaluate($this->getItemOrDefaultItem($this->clusters, $resource));
-    }
-
-    public function getPluginIfAvailable(string $pluginId): FilamentManager|Plugin|null
-    {
-        if (! Filament::getCurrentPanel()) {
-            return null;
-        }
-
-        return filament($pluginId);
-    }
 }

@@ -6,49 +6,49 @@ use Filament\Tables\Table;
 
 class CustomizableTable extends Table
 {
-    public string $pluginId;
+    private string $resource;
 
-    public static function for(Table $table, string $pluginId)
+    public static function for(Table $table, string $resource): static
     {
         $static = app(static::class, ['livewire' => $table->getLivewire()]);
         $static->configure();
 
         return $static
-            ->query($table->getQuery())
-            ->setPluginId($pluginId);
+            ->forResource($resource)
+            ->query($table->getQuery());
     }
 
-    public function setPluginId(string $pluginId): static
+    public function forResource(string $resource): static
     {
-        $this->pluginId = $pluginId;
+        $this->resource = $resource;
 
         return $this;
     }
 
     public function defaultColumns(array $defaults): static
     {
-        $this->columns(filament($this->pluginId)->getColumns() ?? $defaults);
+        $this->columns(FilamentModifiablePlugins::getColumns($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultFilters(array $defaults): static
     {
-        $this->filters(filament($this->pluginId)->getFilters() ?? $defaults);
+        $this->filters(FilamentModifiablePlugins::getFilters($this->resource) ?? $defaults);
 
         return $this;
     }
 
-    public function defaultActions(array $defaults): static
+    public function defaultRecordActions(array $defaults): static
     {
-        $this->recordActions(filament($this->pluginId)->getRecordActions() ?? $defaults);
+        $this->recordActions(FilamentModifiablePlugins::getRecordActions($this->resource) ?? $defaults);
 
         return $this;
     }
 
-    public function defaultBulkActions(array $defaults): static
+    public function defaultToolbarActions(array $defaults): static
     {
-        $this->toolbarActions(filament($this->pluginId)->getToolbarActions() ?? $defaults);
+        $this->toolbarActions(FilamentModifiablePlugins::getToolbarActions($this->resource) ?? $defaults);
 
         return $this;
     }
