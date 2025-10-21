@@ -88,9 +88,9 @@ trait CanModifyPageFeatures
         return $this->evaluate($this->customRelations[$resource] ?? []);
     }
 
-    public function getCustomPages(string $resource): array
+    public function getCustomPages(string $resource): ?array
     {
-        return $this->evaluate($this->customPages[$resource] ?? []);
+        return $this->evaluate($this->customPages[$resource] ?? null);
     }
 
     public function getSchema(Schema $schema, Closure $defaultSchema, string $resource): Schema

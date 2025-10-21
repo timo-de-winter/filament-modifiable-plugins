@@ -4,6 +4,7 @@ namespace TimoDeWinter\FilamentModifiablePlugins\Concerns\ResourceModifications;
 
 use Closure;
 use Filament\Tables\Table;
+use TimoDeWinter\FilamentModifiablePlugins\CustomizableTable;
 
 trait CanModifyTable
 {
@@ -78,10 +79,10 @@ trait CanModifyTable
         return $this->evaluate($this->toolbarActions[$resource] ?? null);
     }
 
-    public function getCustomTable(Table $table, Closure $defaultTable, string $resource): ?string
+    public function getCustomTable(Table $table, Closure $defaultTable, string $resource): ?CustomizableTable
     {
         return $this->evaluate($this->customTables[$resource] ?? $defaultTable, [
-            'table' => $table,
+            'table' => CustomizableTable::for($table, $resource),
         ]);
     }
 }

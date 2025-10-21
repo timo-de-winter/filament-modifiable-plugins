@@ -3,6 +3,7 @@
 namespace TimoDeWinter\FilamentModifiablePlugins;
 
 use Filament\Tables\Table;
+use \TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins as FilamentModifiablePluginsFacade;
 
 class CustomizableTable extends Table
 {
@@ -27,28 +28,28 @@ class CustomizableTable extends Table
 
     public function defaultColumns(array $defaults): static
     {
-        $this->columns(FilamentModifiablePlugins::getColumns($this->resource) ?? $defaults);
+        $this->columns(FilamentModifiablePluginsFacade::getColumns($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultFilters(array $defaults): static
     {
-        $this->filters(FilamentModifiablePlugins::getFilters($this->resource) ?? $defaults);
+        $this->filters(FilamentModifiablePluginsFacade::getFilters($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultRecordActions(array $defaults): static
     {
-        $this->recordActions(FilamentModifiablePlugins::getRecordActions($this->resource) ?? $defaults);
+        $this->recordActions(FilamentModifiablePluginsFacade::getRecordActions($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultToolbarActions(array $defaults): static
     {
-        $this->toolbarActions(FilamentModifiablePlugins::getToolbarActions($this->resource) ?? $defaults);
+        $this->toolbarActions(FilamentModifiablePluginsFacade::getToolbarActions($this->resource) ?? $defaults);
 
         return $this;
     }

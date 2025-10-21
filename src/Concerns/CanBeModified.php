@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use TimoDeWinter\FilamentModifiablePlugins\CustomizableTable;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
+use UnitEnum;
 
 trait CanBeModified
 {
@@ -18,49 +19,49 @@ trait CanBeModified
         return FilamentModifiablePlugins::getCluster(self::class) ?? parent::getCluster();
     }
 
-    public static function getNavigationGroup(string $resource): ?string
+    public static function getNavigationGroup(): UnitEnum|string|null
     {
-        return FilamentModifiablePlugins::getNavigationGroup($resource) ?? parent::getNavigationGroup();
+        return FilamentModifiablePlugins::getNavigationGroup(self::class) ?? parent::getNavigationGroup();
     }
 
-    public static function getNavigationParentItem(string $resource): ?string
+    public static function getNavigationParentItem(): ?string
     {
-        return FilamentModifiablePlugins::getNavigationParentItem($resource) ?? parent::getNavigationParentItem();
+        return FilamentModifiablePlugins::getNavigationParentItem(self::class) ?? parent::getNavigationParentItem();
     }
 
-    public static function getNavigationIcon(string $resource): string|BackedEnum|null
+    public static function getNavigationIcon(): string|BackedEnum|null
     {
-        return FilamentModifiablePlugins::getNavigationIcon($resource) ?? parent::getNavigationIcon();
+        return FilamentModifiablePlugins::getNavigationIcon(self::class) ?? parent::getNavigationIcon();
     }
 
-    public static function getActiveNavigationIcon(string $resource): string|BackedEnum|null
+    public static function getActiveNavigationIcon(): string|BackedEnum|null
     {
-        return FilamentModifiablePlugins::getActiveNavigationIcon($resource) ?? parent::getActiveNavigationIcon();
+        return FilamentModifiablePlugins::getActiveNavigationIcon(self::class) ?? parent::getActiveNavigationIcon();
     }
 
-    public static function getLabel(string $resource): ?string
+    public static function getLabel(): ?string
     {
-        return FilamentModifiablePlugins::getLabel($resource) ?? parent::getLabel();
+        return FilamentModifiablePlugins::getLabel(self::class) ?? parent::getLabel();
     }
 
-    public static function getNavigationSort(string $resource): ?int
+    public static function getNavigationSort(): ?int
     {
-        return FilamentModifiablePlugins::getNavigationSort($resource) ?? parent::getNavigationSort();
+        return FilamentModifiablePlugins::getNavigationSort(self::class) ?? parent::getNavigationSort();
     }
 
-    public static function getNavigationBadge(string $resource): ?string
+    public static function getNavigationBadge(): ?string
     {
-        return FilamentModifiablePlugins::getNavigationBadge($resource) ?? parent::getNavigationBadge();
+        return FilamentModifiablePlugins::getNavigationBadge(self::class) ?? parent::getNavigationBadge();
     }
 
-    public static function getNavigationBadgeColor(string $resource): ?string
+    public static function getNavigationBadgeColor(): ?string
     {
-        return FilamentModifiablePlugins::getNavigationBadgeColor($resource) ?? parent::getNavigationBadgeColor();
+        return FilamentModifiablePlugins::getNavigationBadgeColor(self::class) ?? parent::getNavigationBadgeColor();
     }
 
-    public static function getNavigationBadgeTooltip(string $resource): Htmlable|string|null
+    public static function getNavigationBadgeTooltip(): Htmlable|string|null
     {
-        return FilamentModifiablePlugins::getNavigationBadgeTooltip($resource) ?? parent::getNavigationBadgeTooltip();
+        return FilamentModifiablePlugins::getNavigationBadgeTooltip(self::class) ?? parent::getNavigationBadgeTooltip();
     }
 
     public static function getCustomRelations(array $defaultRelations = []): array
