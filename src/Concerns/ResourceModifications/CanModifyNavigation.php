@@ -30,64 +30,63 @@ trait CanModifyNavigation
     /**
      * Setters
      */
-
-    public function navigationGroup(string | UnitEnum | Closure | null $group, string $resource): static
+    public function navigationGroup(string|UnitEnum|Closure|null $group, string $resource): static
     {
         $this->navigationGroups[$resource] = $group;
 
         return $this;
     }
 
-    public function parentItem(string | Closure | null $group, string $resource): static
+    public function parentItem(string|Closure|null $group, string $resource): static
     {
         $this->navigationParentItems[$resource] = $group;
 
         return $this;
     }
 
-    public function icon(string | BackedEnum | Htmlable | Closure | null $icon, string $resource): static
+    public function icon(string|BackedEnum|Htmlable|Closure|null $icon, string $resource): static
     {
         $this->navigationIcons[$resource] = $icon;
 
         return $this;
     }
 
-    public function activeIcon(string | BackedEnum | Htmlable | Closure | null $activeIcon, string $resource): static
+    public function activeIcon(string|BackedEnum|Htmlable|Closure|null $activeIcon, string $resource): static
     {
         $this->activeNavigationIcons[$resource] = $activeIcon;
 
         return $this;
     }
 
-    public function label(string | Closure $label, string $resource): static
+    public function label(string|Closure $label, string $resource): static
     {
         $this->navigationLabels[$resource] = $label;
 
         return $this;
     }
 
-    public function sort(int | Closure | null $sort, string $resource): static
+    public function sort(int|Closure|null $sort, string $resource): static
     {
         $this->navigationSorts[$resource] = $sort;
 
         return $this;
     }
 
-    public function badge(string | Closure | null $badge, string $resource): static
+    public function badge(string|Closure|null $badge, string $resource): static
     {
         $this->navigationBadges[$resource] = $badge;
 
         return $this;
     }
 
-    public function badgeColor(string | array | Closure | null $badgeColor, string $resource): static
+    public function badgeColor(string|array|Closure|null $badgeColor, string $resource): static
     {
         $this->navigationBadgeColors[$resource] = $badgeColor;
 
         return $this;
     }
 
-    public function badgeTooltip(string | Htmlable | Closure | null $badgeTooltip, string $resource): static
+    public function badgeTooltip(string|Htmlable|Closure|null $badgeTooltip, string $resource): static
     {
         $this->navigationBadgeTooltips[$resource] = $badgeTooltip;
 

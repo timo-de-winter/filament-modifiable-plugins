@@ -10,14 +10,14 @@ use UnitEnum;
 
 trait CanModifyResources
 {
-    public function title(string | Htmlable | Closure $title, string $resource): static
+    public function title(string|Htmlable|Closure $title, string $resource): static
     {
         FilamentModifiablePlugins::title($title, $resource);
 
         return $this;
     }
 
-    public function slug(string | Closure $slug, string $resource): static
+    public function slug(string|Closure $slug, string $resource): static
     {
         FilamentModifiablePlugins::slug($slug, $resource);
 
@@ -59,63 +59,63 @@ trait CanModifyResources
         return $this;
     }
 
-    public function navigationGroup(string | UnitEnum | Closure | null $group, string $resource): static
+    public function navigationGroup(string|UnitEnum|Closure|null $group, string $resource): static
     {
         FilamentModifiablePlugins::navigationGroup($group, $resource);
 
         return $this;
     }
 
-    public function parentItem(string | Closure | null $group, string $resource): static
+    public function parentItem(string|Closure|null $group, string $resource): static
     {
         FilamentModifiablePlugins::parentItem($group, $resource);
 
         return $this;
     }
 
-    public function icon(string | BackedEnum | Htmlable | Closure | null $icon, string $resource): static
+    public function icon(string|BackedEnum|Htmlable|Closure|null $icon, string $resource): static
     {
         FilamentModifiablePlugins::icon($icon, $resource);
 
         return $this;
     }
 
-    public function activeIcon(string | BackedEnum | Htmlable | Closure | null $activeIcon, string $resource): static
+    public function activeIcon(string|BackedEnum|Htmlable|Closure|null $activeIcon, string $resource): static
     {
         FilamentModifiablePlugins::activeIcon($activeIcon, $resource);
 
         return $this;
     }
 
-    public function label(string | Closure $label, string $resource): static
+    public function label(string|Closure $label, string $resource): static
     {
         FilamentModifiablePlugins::label($label, $resource);
 
         return $this;
     }
 
-    public function sort(int | Closure | null $sort, string $resource): static
+    public function sort(int|Closure|null $sort, string $resource): static
     {
         FilamentModifiablePlugins::sort($sort, $resource);
 
         return $this;
     }
 
-    public function badge(string | Closure | null $badge, string $resource): static
+    public function badge(string|Closure|null $badge, string $resource): static
     {
         FilamentModifiablePlugins::badge($badge, $resource);
 
         return $this;
     }
 
-    public function badgeColor(string | array | Closure | null $badgeColor, string $resource): static
+    public function badgeColor(string|array|Closure|null $badgeColor, string $resource): static
     {
         FilamentModifiablePlugins::badgeColor($badgeColor, $resource);
 
         return $this;
     }
 
-    public function badgeTooltip(string | Htmlable | Closure | null $badgeTooltip, string $resource): static
+    public function badgeTooltip(string|Htmlable|Closure|null $badgeTooltip, string $resource): static
     {
         FilamentModifiablePlugins::badgeTooltip($badgeTooltip, $resource);
 

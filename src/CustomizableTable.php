@@ -3,7 +3,7 @@
 namespace TimoDeWinter\FilamentModifiablePlugins;
 
 use Filament\Tables\Table;
-use \TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins as FilamentModifiablePluginsFacade;
+use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins as FilamentModifiablePluginsFacade;
 
 class CustomizableTable extends Table
 {

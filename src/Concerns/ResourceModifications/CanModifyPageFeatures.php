@@ -23,14 +23,14 @@ trait CanModifyPageFeatures
     /**
      * Setters
      */
-    public function title(string | Htmlable | Closure $title, string $resource): static
+    public function title(string|Htmlable|Closure $title, string $resource): static
     {
         $this->titles[$resource] = $title;
 
         return $this;
     }
 
-    public function slug(string | Closure $slug, string $resource): static
+    public function slug(string|Closure $slug, string $resource): static
     {
         $this->slugs[$resource] = $slug;
 
@@ -68,17 +68,17 @@ trait CanModifyPageFeatures
     /**
      * Getters
      */
-    public function getTitle(string $resource): null | string | Htmlable
+    public function getTitle(string $resource): null|string|Htmlable
     {
         return $this->evaluate($this->titles[$resource] ?? null);
     }
 
-    public function getSlug(string $resource): null | string
+    public function getSlug(string $resource): ?string
     {
         return $this->evaluate($this->slugs[$resource] ?? null);
     }
 
-    public function getTenantOwnershipRelationshipName(string $resource): null | string
+    public function getTenantOwnershipRelationshipName(string $resource): ?string
     {
         return $this->evaluate($this->tenantOwnershipRelationshipNames[$resource] ?? null);
     }

@@ -15,7 +15,7 @@ trait CanModifyCluster
         return $this;
     }
 
-    public function getCluster(string $resource): string|null
+    public function getCluster(string $resource): ?string
     {
         return $this->evaluate($this->clusters[$resource] ?? null);
     }
