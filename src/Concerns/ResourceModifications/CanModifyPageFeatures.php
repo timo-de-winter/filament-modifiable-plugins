@@ -83,7 +83,7 @@ trait CanModifyPageFeatures
         return $this->evaluate($this->tenantOwnershipRelationshipNames[$resource] ?? null);
     }
 
-    public function getCustomRelations(string $resource): array
+    public function getCustomRelations(string $resource): ?array
     {
         return $this->evaluate($this->customRelations[$resource] ?? null);
     }
