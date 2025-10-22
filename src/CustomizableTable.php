@@ -9,6 +9,8 @@ class CustomizableTable extends Table
 {
     private string $resource;
 
+    private Table $table;
+
     public static function for(Table $table, string $resource): static
     {
         $static = app(static::class, ['livewire' => $table->getLivewire()]);
@@ -16,7 +18,7 @@ class CustomizableTable extends Table
 
         return $static
             ->forResource($resource)
-            ->query($table->getQuery());
+            ->forTable($table);
     }
 
     public function forResource(string $resource): static
@@ -26,30 +28,37 @@ class CustomizableTable extends Table
         return $this;
     }
 
+    public function forTable(Table $table): static
+    {
+        $this->table = $table;
+
+        return $this;
+    }
+
     public function defaultColumns(array $defaults): static
     {
-        $this->columns(FilamentModifiablePluginsFacade::getColumns($this->resource) ?? $defaults);
+        $this->table->columns(FilamentModifiablePluginsFacade::getColumns($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultFilters(array $defaults): static
     {
-        $this->filters(FilamentModifiablePluginsFacade::getFilters($this->resource) ?? $defaults);
+        $this->table->filters(FilamentModifiablePluginsFacade::getFilters($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultRecordActions(array $defaults): static
     {
-        $this->recordActions(FilamentModifiablePluginsFacade::getRecordActions($this->resource) ?? $defaults);
+        $this->table->recordActions(FilamentModifiablePluginsFacade::getRecordActions($this->resource) ?? $defaults);
 
         return $this;
     }
 
     public function defaultToolbarActions(array $defaults): static
     {
-        $this->toolbarActions(FilamentModifiablePluginsFacade::getToolbarActions($this->resource) ?? $defaults);
+        $this->table->toolbarActions(FilamentModifiablePluginsFacade::getToolbarActions($this->resource) ?? $defaults);
 
         return $this;
     }

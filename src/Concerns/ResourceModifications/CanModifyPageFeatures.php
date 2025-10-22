@@ -85,7 +85,7 @@ trait CanModifyPageFeatures
 
     public function getCustomRelations(string $resource): array
     {
-        return $this->evaluate($this->customRelations[$resource] ?? []);
+        return $this->evaluate($this->customRelations[$resource] ?? null);
     }
 
     public function getCustomPages(string $resource): ?array

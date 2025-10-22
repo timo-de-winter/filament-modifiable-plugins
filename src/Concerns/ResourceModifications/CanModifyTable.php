@@ -79,10 +79,12 @@ trait CanModifyTable
         return $this->evaluate($this->toolbarActions[$resource] ?? null);
     }
 
-    public function getCustomTable(Table $table, Closure $defaultTable, string $resource): ?CustomizableTable
+    public function getCustomTable(Table $table, Closure $defaultTable, string $resource): Table
     {
-        return $this->evaluate($this->customTables[$resource] ?? $defaultTable, [
+        $this->evaluate($this->customTables[$resource] ?? $defaultTable, [
             'table' => CustomizableTable::for($table, $resource),
         ]);
+
+        return $table;
     }
 }
