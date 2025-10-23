@@ -2,176 +2,158 @@
 
 namespace TimoDeWinter\FilamentModifiablePlugins\Concerns;
 
+use BackedEnum;
 use Closure;
-use Filament\Forms\Form;
-use Filament\Support\Concerns\EvaluatesClosures;
+use Illuminate\Contracts\Support\Htmlable;
 use TimoDeWinter\FilamentModifiablePlugins\Facades\FilamentModifiablePlugins;
+use UnitEnum;
 
 trait CanModifyResources
 {
-    use CustomizesResourceTable;
-    use EvaluatesClosures;
-
-    protected array $navigationGroups = [];
-
-    protected array $navigationSorts = [];
-
-    protected array $navigationLabels = [];
-
-    protected array $navigationIcons = [];
-
-    protected array $activeNavigationIcons = [];
-
-    protected array $pageTitles = [];
-
-    protected array $slugs = [];
-
-    protected array $forms = [];
-
-    protected array $customRelations = [];
-
-    protected array $customPages = [];
-
-    protected array $tenantOwnershipRelationshipNames = [];
-
-    public function navigationGroup(string|Closure $group, string $resource = 'default'): static
+    public function title(string|Htmlable|Closure $title, string $resource): static
     {
-        $this->navigationGroups[$resource] = $group;
+        FilamentModifiablePlugins::title($title, $resource);
 
         return $this;
     }
 
-    public function navigationSort(int|Closure $sort, string $resource = 'default'): static
+    public function slug(string|Closure $slug, string $resource): static
     {
-        $this->navigationSorts[$resource] = $sort;
+        FilamentModifiablePlugins::slug($slug, $resource);
 
         return $this;
     }
 
-    public function navigationLabel(string|Closure $label, string $resource = 'default'): static
+    public function tenantOwnershipRelationshipName(null|string|Closure $tenantOwnershipRelationshipName, string $resource): static
     {
-        $this->navigationLabels[$resource] = $label;
+        FilamentModifiablePlugins::tenantOwnershipRelationshipName($tenantOwnershipRelationshipName, $resource);
 
         return $this;
     }
 
-    public function navigationIcon(string|Closure $icon, string $resource = 'default'): static
+    public function customRelations(array|Closure $relations, string $resource): static
     {
-        $this->navigationIcons[$resource] = $icon;
+        FilamentModifiablePlugins::customRelations($relations, $resource);
 
         return $this;
     }
 
-    public function activeNavigationIcon(string|Closure $icon, string $resource = 'default'): static
+    public function customPages(array|Closure $pages, string $resource): static
     {
-        $this->activeNavigationIcons[$resource] = $icon;
+        FilamentModifiablePlugins::customPages($pages, $resource);
 
         return $this;
     }
 
-    public function pageTitle(string|Closure $pageTitle, string $resource = 'default'): static
+    public function schema(Closure $schema, string $resource): static
     {
-        $this->pageTitles[$resource] = $pageTitle;
+        FilamentModifiablePlugins::schema($schema, $resource);
 
         return $this;
     }
 
-    public function slug(string|Closure $slug, string $resource = 'default'): static
-    {
-        $this->slugs[$resource] = $slug;
-
-        return $this;
-    }
-
-    public function tenantOwnershipRelationshipName(null|string|Closure $tenantOwnershipRelationshipName, string $resource = 'default'): static
-    {
-        $this->tenantOwnershipRelationshipNames[$resource] = $tenantOwnershipRelationshipName;
-
-        return $this;
-    }
-
-    public function cluster(null|string|Closure $cluster, string $resource = 'default'): static
+    public function cluster(null|string|Closure $cluster, string $resource): static
     {
         FilamentModifiablePlugins::cluster($cluster, $resource);
 
         return $this;
     }
 
-    public function customRelations(array|Closure $relations, string $resource = 'default'): static
+    public function navigationGroup(string|UnitEnum|Closure|null $group, string $resource): static
     {
-        $this->customRelations[$resource] = $relations;
+        FilamentModifiablePlugins::navigationGroup($group, $resource);
 
         return $this;
     }
 
-    public function customPages(array|Closure $pages, string $resource = 'default'): static
+    public function parentItem(string|Closure|null $group, string $resource): static
     {
-        $this->customPages[$resource] = $pages;
+        FilamentModifiablePlugins::parentItem($group, $resource);
 
         return $this;
     }
 
-    public function form(Closure $form, string $resource = 'default'): static
+    public function icon(string|BackedEnum|Htmlable|Closure|null $icon, string $resource): static
     {
-        $this->forms[$resource] = $form;
+        FilamentModifiablePlugins::icon($icon, $resource);
 
         return $this;
     }
 
-    public function getNavigationGroup(string $resource = 'default'): Closure|string|null
+    public function activeIcon(string|BackedEnum|Htmlable|Closure|null $activeIcon, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->navigationGroups, $resource));
+        FilamentModifiablePlugins::activeIcon($activeIcon, $resource);
+
+        return $this;
     }
 
-    public function getNavigationSort(string $resource = 'default'): int|Closure|null
+    public function label(string|Closure $label, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->navigationSorts, $resource));
+        FilamentModifiablePlugins::label($label, $resource);
+
+        return $this;
     }
 
-    public function getNavigationLabel(string $resource = 'default'): Closure|string|null
+    public function sort(int|Closure|null $sort, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->navigationLabels, $resource));
+        FilamentModifiablePlugins::sort($sort, $resource);
+
+        return $this;
     }
 
-    public function getNavigationIcon(string $resource = 'default'): Closure|string|null
+    public function badge(string|Closure|null $badge, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->navigationIcons, $resource));
+        FilamentModifiablePlugins::badge($badge, $resource);
+
+        return $this;
     }
 
-    public function getActiveNavigationIcon(string $resource = 'default'): Closure|string|null
+    public function badgeColor(string|array|Closure|null $badgeColor, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->activeNavigationIcons, $resource));
+        FilamentModifiablePlugins::badgeColor($badgeColor, $resource);
+
+        return $this;
     }
 
-    public function getPageTitle(string $resource = 'default'): Closure|string|null
+    public function badgeTooltip(string|Htmlable|Closure|null $badgeTooltip, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->pageTitles, $resource));
+        FilamentModifiablePlugins::badgeTooltip($badgeTooltip, $resource);
+
+        return $this;
     }
 
-    public function getSlug(string $resource = 'default'): Closure|string|null
+    public function columns(array|Closure $columns, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->slugs, $resource));
+        FilamentModifiablePlugins::columns($columns, $resource);
+
+        return $this;
     }
 
-    public function getTenantOwnershipRelationshipName(string $resource = 'default'): Closure|string|null
+    public function filters(array|Closure $filters, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->tenantOwnershipRelationshipNames, $resource));
+        FilamentModifiablePlugins::filters($filters, $resource);
+
+        return $this;
     }
 
-    public function getCustomRelations(string $resource = 'default'): Closure|array|null
+    public function recordActions(array|Closure $actions, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->customRelations, $resource));
+        FilamentModifiablePlugins::recordActions($actions, $resource);
+
+        return $this;
     }
 
-    public function getCustomPages(string $resource = 'default'): Closure|array|null
+    public function toolbarActions(array|Closure $toolbarActions, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->customPages, $resource));
+        FilamentModifiablePlugins::toolbarActions($toolbarActions, $resource);
+
+        return $this;
     }
 
-    public function getForm(Form $form, Closure $defaultForm, string $resource = 'default'): Form
+    public function customTable(Closure $table, string $resource): static
     {
-        return $this->evaluate(FilamentModifiablePlugins::getItemOrDefaultItem($this->forms, $resource) ?? $defaultForm, [
-            'form' => $form,
-        ]);
+        FilamentModifiablePlugins::customTable($table, $resource);
+
+        return $this;
     }
 }

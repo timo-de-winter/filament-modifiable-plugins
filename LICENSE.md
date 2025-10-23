@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) BeInteractive <info@timodw.nl>
+Copyright (c) Timo de Winter <info@timodw.nl>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
