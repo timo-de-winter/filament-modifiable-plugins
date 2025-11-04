@@ -97,7 +97,7 @@ trait CanModifyPageFeatures
     {
         return $this->schemas[$resource] ?? null;
     }
-    
+
     public function getSchema(Schema $schema, Closure $defaultSchema, string $resource): Schema
     {
         return $this->evaluate($this->schemas[$resource] ?? $defaultSchema, [
