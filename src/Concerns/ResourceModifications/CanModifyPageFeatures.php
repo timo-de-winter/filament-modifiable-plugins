@@ -93,6 +93,11 @@ trait CanModifyPageFeatures
         return $this->evaluate($this->customPages[$resource] ?? null);
     }
 
+    public function getRawSchema(string $resource): mixed
+    {
+        return $this->schemas[$resource] ?? null;
+    }
+    
     public function getSchema(Schema $schema, Closure $defaultSchema, string $resource): Schema
     {
         return $this->evaluate($this->schemas[$resource] ?? $defaultSchema, [
