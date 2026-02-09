@@ -24,7 +24,7 @@ This package provides a clean, fluent API to make all of these customizations po
 
 - PHP 8.3+
 - Laravel 11.x or 12.x
-- Filament 4.1+
+- Filament 4.1+ or 5.0+
 
 ## Installation
 
